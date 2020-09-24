@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Is Number Prime ?</title>
+	<style type="text/css">
+		html {}
+
+		body {
+			margin: 3% 10%;
+			max-width: 80%;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		function check() {
+			document.getElementById("result").innerHTML = "Results:"
+			var isPrime = true;
+			var n = document.getElementById("n_input").value;
+
+			if(n <= 2) {
+				document.getElementById("result").innerHTML = "Results:<br>Invalid input (number must be at least 3) !";
+				return;
+			}
+
+			for(i = 2; i < n; i++) {
+				if(n % i == 0) {
+					isPrime = false;
+					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br>" + n + " can be divided by " + i + ".";
+				}
+			}
+
+			if(isPrime) {
+				document.getElementById("result").innerHTML = "Results:<br>" + n + " is prime."
+			} else {
+				document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br>Terminated."
+			}
+		}
+	</script>
+
+	<h2>Is That Number Prime ?</h2>
+	<hr>
+	<br>
+
+	<div id="inputs">
+		<input type="number" id="n_input" placeholder="Number to check">
+		<button onclick="check()">Check</button>
+	</div>
+
+	<br>
+	<hr>
+	<br>
+
+	<div id="result">Results:</div>
+
+	<br>
+	<hr>
+</body>
+</html>
