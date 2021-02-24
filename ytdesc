@@ -1,0 +1,23 @@
+#!/bin/sh
+
+ove="$1"
+framerate=$(xmllint --xpath 'string(/project/sequences/sequence[@id=1]/@framerate)' "$ove")
+framerate=${framerate%.*}
+# >&2 echo "Framerate is $framerate"
+
+echo "# Timecodes"
+xmllint --xpath '/project/sequences/sequence[@id=1]/marker' "$ove" | while read marker
+do
+	frame=$(echo "$marker" | xmllint --xpath 'string(/marker/@frame)' -)
+	seconds=$((frame / framerate))
+	time=$(date -d@${seconds} '+%M:%S')
+	name=$(echo "$marker" | xmllint --xpath 'string(/marker/@name)' -)
+	echo "$name - $time"
+done
+
+echo -e "\n# Music"
+xmllint --xpath '/project/media/footage[contains(@url,"Music")]/@url' "$ove" | while read music
+do
+	music=${music##*/}
+	echo ${music%.*}
+done
